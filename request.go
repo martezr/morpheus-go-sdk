@@ -2,6 +2,7 @@ package morpheus
 
 import (
 	"fmt"
+	"io"
 	// "github.com/go-resty/resty/v2"
 	// "github.com/gormorpheus/morpheusapi/client"
 	// "github.com/gormorpheus/morpheusapi/response"
@@ -27,7 +28,7 @@ type Request struct {
 	IsMultiPart bool
 	isFormData  bool
 	IsStream    bool
-	StreamBody  string
+	StreamBody  io.Reader
 	// setContentLength    bool
 	// isSaveResponse      bool
 	// notParseResponse    bool

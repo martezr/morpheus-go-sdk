@@ -88,9 +88,9 @@ func (client *Client) UploadPlugin(filePayload []*FilePayload, req *Request) (*R
 		IsMultiPart:    true,
 		MultiPartFiles: filePayload,
 		Headers: map[string]string{
-			"Content-Type": "application/x-www-form-urlencoded",
+			"Content-Type": "multipart/form-data",
 		},
-		Result: &CreateCatalogItemResult{},
+		Result: &CreatePluginResult{},
 	})
 }
 

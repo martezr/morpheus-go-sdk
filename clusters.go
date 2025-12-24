@@ -19,6 +19,7 @@ type Cluster struct {
 	Visibility          string   `json:"visibility"`
 	Description         string   `json:"description"`
 	Location            string   `json:"location"`
+	DateCreated         string   `json:"dateCreated"`
 	Enabled             bool     `json:"enabled"`
 	ServiceUrl          string   `json:"serviceUrl"`
 	ServiceHost         string   `json:"serviceHost"`

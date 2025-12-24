@@ -1,8 +1,8 @@
 package main
 
 import (
-	b64 "encoding/base64"
 	"fmt"
+	"log"
 	"os"
 
 	"github.com/gomorpheus/morpheus-go-sdk"
@@ -53,20 +53,20 @@ func main() {
 	// Upload Virtual Image
 	virtualImageName := "netboot.xyz.iso"
 	virtualImagePath := fmt.Sprintf("/Downloads/%s", virtualImageName)
-	data, err := os.ReadFile(virtualImagePath)
 
+	// Open the file to get an io.Reader
+	data, err := os.Open(virtualImagePath)
 	if err != nil {
-		fmt.Println(err)
+		log.Fatalf("Error opening file: %v", err)
 	}
-
-	sEnc := b64.StdEncoding.EncodeToString([]byte(data))
+	defer data.Close()
 
 	uploadResp, err := client.UploadVirtualImage(createImageResult.VirtualImage.ID, &morpheus.Request{
 		QueryParams: map[string]string{
 			"filename": virtualImageName,
 		},
 		IsStream:   true,
-		StreamBody: fmt.Sprintf("data:application/octet-stream;name=%s;base64,%s", virtualImageName, sEnc),
+		StreamBody: data,
 	})
 
 	if err != nil {

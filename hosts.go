@@ -81,7 +81,7 @@ type Host struct {
 		FreeSwap         int64   `json:"freeSwap"`
 		UsedSwap         int64   `json:"usedSwap"`
 		CpuIdleTime      int64   `json:"cpuIdleTime"`
-		CpuSystemTime    int64   `json:"cpuSystemTime"`
+		CpuSystemTime    float64 `json:"cpuSystemTime"`
 		CpuUserTime      int64   `json:"cpuUserTime"`
 		CpuTotalTime     int64   `json:"cpuTotalTime"`
 		CpuUsage         float64 `json:"cpuUsage"`
@@ -107,6 +107,11 @@ type Host struct {
 	MaxMemory              int64       `json:"maxMemory"`
 	MaxStorage             int64       `json:"maxStorage"`
 	MaxCpu                 int64       `json:"maxCpu"`
+	MaxGpus                int64       `json:"maxGpus"`
+	HardwareCpuModel       string      `json:"hardwareCpuModel"`
+	HardwareProductVendor  string      `json:"hardwareProductVendor"`
+	HardwareProductName    string      `json:"hardwareProductName"`
+	HardwareCpuFrequency   float64     `json:"hardwareCpuFrequency"`
 	ManageInternalFirewall bool        `json:"manageInternalFirewall"`
 	EnableLogs             bool        `json:"enableLogs"`
 	HourlyCost             float64     `json:"hourlyCost"`
@@ -137,6 +142,9 @@ type Host struct {
 		PlanResizable        bool   `json:"planResizable"`
 		RootVolume           bool   `json:"rootVolume"`
 		UnitNumber           string `json:"unitNumber"`
+		DeviceName           string `json:"deviceName"`
+		DeviceDisplayName    string `json:"deviceDisplayName"`
+		VolumeType           string `json:"volumeType"`
 		TypeId               int64  `json:"typeId"`
 		ConfigurableIOPS     bool   `json:"configurableIOPS"`
 		DatastoreId          int64  `json:"datastoreId"`
@@ -197,6 +205,10 @@ type Host struct {
 		} `json:"type"`
 		IpMode     string `json:"ipMode"`
 		MacAddress string `json:"macAddress"`
+		Interfaces []struct {
+			ID   int64  `json:"id"`
+			Name string `json:"name"`
+		} `json:"interfaces"`
 	} `json:"interfaces"`
 	Labels       []string      `json:"labels"`
 	Tags         []interface{} `json:"tags"`
@@ -222,6 +234,9 @@ type Host struct {
 	GuestConsolePassword     string `json:"guestConsolePassword"`
 	GuestConsolePasswordHash string `json:"guestConsolePasswordHash"`
 	GuestConsolePort         string `json:"guestConsolePort"`
+	IScsiInitiatorName       string `json:"iScsiInitiatorName"`
+	MaintenanceMode          bool   `json:"maintenanceMode"`
+	PlacementStrategy        string `json:"placementStrategy"`
 }
 
 type HostStats struct {

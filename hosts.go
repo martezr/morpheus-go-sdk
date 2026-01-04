@@ -78,6 +78,7 @@ type Host struct {
 		Ts               string  `json:"ts"`
 		FreeMemory       int64   `json:"freeMemory"`
 		UsedMemory       int64   `json:"usedMemory"`
+		MaxMemory        int64   `json:"maxMemory"`
 		FreeSwap         int64   `json:"freeSwap"`
 		UsedSwap         int64   `json:"usedSwap"`
 		CpuIdleTime      int64   `json:"cpuIdleTime"`

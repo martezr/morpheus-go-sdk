@@ -105,6 +105,7 @@ type Host struct {
 	AgentVersion           string      `json:"agentVersion"`
 	MaxCores               int64       `json:"maxCores"`
 	CoresPerSocket         int64       `json:"coresPerSocket"`
+	MaxSockets             int64       `json:"maxSockets"`
 	MaxMemory              int64       `json:"maxMemory"`
 	MaxStorage             int64       `json:"maxStorage"`
 	MaxCpu                 int64       `json:"maxCpu"`

@@ -51,6 +51,9 @@ type VirtualImage struct {
 	TrialVersion             bool    `json:"trialVersion"`
 	VirtioSupported          bool    `json:"virtioSupported"`
 	Uefi                     bool    `json:"uefi"`
+	TPM                      bool    `json:"tpm"`
+	SecureBoot               bool    `json:"secureBoot"`
+	CredentialGuard          bool    `json:"credentialGuard"`
 	IsAutoJoinDomain         bool    `json:"isAutoJoinDomain"`
 	VmtoolsInstalled         bool    `json:"vmToolsInstalled"`
 	InstallAgent             bool    `json:"installAgent"`
@@ -134,8 +137,8 @@ type VirtualImage struct {
 		ImageFolder    interface{} `json:"imageFolder"`
 		RefType        string      `json:"refType"`
 		RefID          int64       `json:"refId"`
-		NodeRefType    interface{} `json:"nodeRefType"`
-		NodeRefID      interface{} `json:"nodeRefId"`
+		NodeRefType    string      `json:"nodeRefType"`
+		NodeRefID      int64       `json:"nodeRefId"`
 		SubRefType     interface{} `json:"subRefType"`
 		SubRefID       interface{} `json:"subRefId"`
 		IsPublic       bool        `json:"isPublic"`

@@ -15,6 +15,8 @@ type Network struct {
 	Name        string   `json:"name"`
 	DisplayName string   `json:"displayName"`
 	Labels      []string `json:"labels"`
+	Tags        []string `json:"tags"`
+	Group       string   `json:"group"`
 	Zone        struct {
 		ID   int64  `json:"id"`
 		Name string `json:"name"`
@@ -28,59 +30,68 @@ type Network struct {
 		ID   int64  `json:"id"`
 		Name string `json:"name"`
 	} `json:"owner"`
-	Code                    string      `json:"code"`
-	Category                string      `json:"category"`
-	InterfaceName           string      `json:"interfaceName"`
-	BridgeName              string      `json:"bridgeName"`
-	BridgeInterface         string      `json:"bridgeInterface"`
-	Description             string      `json:"description"`
-	ExternalId              string      `json:"externalId"`
-	InternalId              string      `json:"internalId"`
-	UniqueId                string      `json:"uniqueId"`
-	ExternalType            string      `json:"externalType"`
-	RefUrl                  string      `json:"refUrl"`
-	RefType                 string      `json:"refType"`
-	RefId                   int64       `json:"refId"`
-	VlanId                  int64       `json:"vlanId"`
-	VswitchName             string      `json:"vswitchName"`
-	DhcpServer              bool        `json:"dhcpServer"`
-	DhcpIp                  string      `json:"dhcpIp"`
-	Gateway                 string      `json:"gateway"`
-	Netmask                 string      `json:"netmask"`
-	Broadcast               string      `json:"broadcast"`
-	SubnetAddress           string      `json:"subnetAddress"`
-	DnsPrimary              string      `json:"dnsPrimary"`
-	DnsSecondary            string      `json:"dnsSecondary"`
-	Cidr                    string      `json:"cidr"`
-	TftpServer              string      `json:"tftpServer"`
-	BootFile                string      `json:"bootFile"`
-	SwitchId                int64       `json:"switchId"`
-	FabricId                int64       `json:"fabricId"`
-	NetworkRole             string      `json:"networkRole"`
-	Status                  string      `json:"status"`
-	AvailabilityZone        string      `json:"availabilityZone"`
-	Pool                    string      `json:"pool"`
+	Code             string `json:"code"`
+	Ipv4Enabled      bool   `json:"ipv4Enabled"`
+	Ipv6Enabled      bool   `json:"ipv6Enabled"`
+	Category         string `json:"category"`
+	InterfaceName    string `json:"interfaceName"`
+	BridgeName       string `json:"bridgeName"`
+	BridgeInterface  string `json:"bridgeInterface"`
+	Description      string `json:"description"`
+	ExternalId       string `json:"externalId"`
+	InternalId       string `json:"internalId"`
+	UniqueId         string `json:"uniqueId"`
+	ExternalType     string `json:"externalType"`
+	RefUrl           string `json:"refUrl"`
+	RefType          string `json:"refType"`
+	RefId            int64  `json:"refId"`
+	VlanId           int64  `json:"vlanId"`
+	VswitchName      string `json:"vswitchName"`
+	DhcpServer       bool   `json:"dhcpServer"`
+	DhcpIp           string `json:"dhcpIp"`
+	DhcpServerIPv6   bool   `json:"dhcpServerIPv6"`
+	Gateway          string `json:"gateway"`
+	Netmask          string `json:"netmask"`
+	Broadcast        string `json:"broadcast"`
+	SubnetAddress    string `json:"subnetAddress"`
+	DnsPrimary       string `json:"dnsPrimary"`
+	DnsSecondary     string `json:"dnsSecondary"`
+	DnsPrimaryIPv6   string `json:"dnsPrimaryIPv6"`
+	DnsSecondaryIPv6 string `json:"dnsSecondaryIPv6"`
+	Cidr             string `json:"cidr"`
+	CidrIPv6         string `json:"cidrIPv6"`
+	GatewayIPv6      string `json:"gatewayIPv6"`
+	NetmaskIPv6      string `json:"netmaskIPv6"`
+	TftpServer       string `json:"tftpServer"`
+	BootFile         string `json:"bootFile"`
+	SwitchId         string `json:"switchId"`
+	FabricId         int64  `json:"fabricId"`
+	NetworkRole      string `json:"networkRole"`
+	Status           string `json:"status"`
+	AvailabilityZone string `json:"availabilityZone"`
+	Pool             struct {
+		ID         int64  `json:"id"`
+		Name       string `json:"name"`
+		DhcpServer bool   `json:"dhcpServer"`
+	} `json:"pool"`
+	PoolIPv6                string      `json:"poolIPv6"`
 	NetworkProxy            string      `json:"networkProxy"`
 	NetworkDomain           string      `json:"networkDomain"`
-	SearchDomains           interface{} `json:"searchDomains"`
+	SearchDomains           []string    `json:"searchDomains"`
 	PrefixLength            string      `json:"prefixLength"`
 	Visibility              string      `json:"visibility"`
 	EnableAdmin             bool        `json:"enableAdmin"`
-	ScanNetwork             bool        `json:"scanNetwork"`
 	Active                  bool        `json:"active"`
 	DefaultNetwork          bool        `json:"defaultNetwork"`
 	AssignPublicIp          bool        `json:"assignPublicIp"`
+	NoProxy                 interface{} `json:"noProxy"`
 	ApplianceUrlProxyBypass bool        `json:"applianceUrlProxyBypass"`
 	ZonePool                struct {
 		ID   int64  `json:"id"`
 		Name string `json:"name"`
 	} `json:"zonePool"`
 	AllowStaticOverride bool `json:"allowStaticOverride"`
-	Tenants             []struct {
-		ID   int64  `json:"id"`
-		Name string `json:"name"`
-	} `json:"tenants"`
-	Subnets []struct {
+	Subnets             []struct {
 		ID         int64  `json:"id"`
 		Name       string `json:"name"`
 		Cidr       string `json:"cidr"`
@@ -89,6 +100,18 @@ type Network struct {
 		Active     bool   `json:"active"`
 		Pool       string `json:"pool"`
 	} `json:"subnets"`
+	ScanNetwork bool `json:"scanNetwork"`
+	Locations   []struct {
+		ID         int64  `json:"id"`
+		RefType    string `json:"refType"`
+		RefId      int64  `json:"refId"`
+		RefUUID    string `json:"refUUID"`
+		ExternalId string `json:"externalId"`
+	} `json:"locations"`
+	Tenants []struct {
+		ID   int64  `json:"id"`
+		Name string `json:"name"`
+	} `json:"tenants"`
 	ResourcePermission struct {
 		All      bool `json:"all"`
 		AllPlans bool `json:"allPlans"`

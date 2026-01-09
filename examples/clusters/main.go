@@ -16,13 +16,21 @@ func main() {
 	}
 	fmt.Println("LOGIN RESPONSE:", resp)
 
-	// List networks
+	// List clusters
 	req := &morpheus.Request{}
-	networkResponse, err := client.ListNetworks(req)
+	response, err := client.ListClusters(req)
 	if err != nil {
 		log.Fatal(err)
 	}
-	result := networkResponse.Result.(*morpheus.ListNetworksResult)
-	networks := result.Networks
-	log.Println(networks)
+	result := response.Result.(*morpheus.ListClustersResult)
+	log.Println(result.Clusters)
+
+	// List Clusters Datastores
+	req = &morpheus.Request{}
+	response, err = client.ListClusterDatastores(1, req)
+	if err != nil {
+		log.Fatal(err)
+	}
+	datastoreResult := response.Result.(*morpheus.ListClusterDatastoresResults)
+	log.Println(datastoreResult.Datastores)
 }

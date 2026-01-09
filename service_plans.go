@@ -23,6 +23,7 @@ type ServicePlan struct {
 	MaxMemory            int64       `json:"maxMemory"`
 	MaxCpu               int64       `json:"maxCpu"`
 	MaxCores             int64       `json:"maxCores"`
+	MaxGpus              int64       `json:"maxGpus"`
 	MaxDisks             int64       `json:"maxDisks"`
 	CustomCpu            bool        `json:"customCpu"`
 	CustomCores          bool        `json:"customCores"`

@@ -89,15 +89,25 @@ type Cluster struct {
 		CpuUsagePeak float64 `json:"cpuUsagePeak"`
 		CpuUsageAvg  float64 `json:"cpuUsageAvg"`
 	}
-	ContainersCount  int64                  `json:"containersCount"`
-	DeploymentsCount int64                  `json:"deploymentsCount"`
-	PodsCount        int64                  `json:"podsCount"`
-	JobsCount        int64                  `json:"jobsCount"`
-	VolumesCount     int64                  `json:"volumesCount"`
-	NamespacesCount  int64                  `json:"namespacesCount"`
-	WorkersCount     int64                  `json:"workersCount"`
-	ServicesCount    int64                  `json:"servicesCount"`
-	Config           map[string]interface{} `json:"config"`
+	ContainersCount  int64 `json:"containersCount"`
+	DeploymentsCount int64 `json:"deploymentsCount"`
+	PodsCount        int64 `json:"podsCount"`
+	JobsCount        int64 `json:"jobsCount"`
+	VolumesCount     int64 `json:"volumesCount"`
+	NamespacesCount  int64 `json:"namespacesCount"`
+	WorkersCount     int64 `json:"workersCount"`
+	ServicesCount    int64 `json:"servicesCount"`
+	Config           struct {
+		ProvisionKey         string  `json:"provisionKey"`
+		ComputeInterfaceName string  `json:"computeInterfaceName"`
+		ComputeVlans         []int64 `json:"computeVlans"`
+		OverlayInterfaceName string  `json:"overlayInterfaceName"`
+		CpuArch              string  `json:"cpuArch"`
+		CpuModel             string  `json:"cpuModel"`
+		DynamicPlacementMode string  `json:"dynamicPlacementMode"`
+		PowerPolicy          string  `json:"powerPolicy"`
+		NotHighAvailability  bool    `json:"notHighAvailability"`
+	} `json:"config"`
 }
 
 type Server struct {
@@ -255,7 +265,7 @@ type ClusterWorker struct {
 	StatusMessage          string      `json:"statusMessage"`
 	ErrorMessage           string      `json:"errorMessage"`
 	StatusDate             string      `json:"statusDate"`
-	StatusPercent          interface{} `json:"statusPercent"`
+	StatusPercent          float64     `json:"statusPercent"`
 	StatusEta              interface{} `json:"statusEta"`
 	PowerState             string      `json:"powerState"`
 	AgentInstalled         bool        `json:"agentInstalled"`
@@ -338,33 +348,87 @@ type ClusterWorker struct {
 }
 
 type ClusterStorageVolume struct {
-	ID                int64  `json:"id"`
-	DisplayOrder      int64  `json:"displayOrder"`
-	Active            bool   `json:"active"`
-	UsedStorage       int64  `json:"usedStorage"`
-	Resizeable        bool   `json:"resizeable"`
-	Online            bool   `json:"online"`
-	DeviceDisplayName string `json:"deviceDisplayName"`
-	RefType           string `json:"refType"`
-	Name              string `json:"name"`
-	ClaimName         string `json:"claimName"`
-	VolumeType        string `json:"volumeType"`
-	DeviceName        string `json:"deviceName"`
-	Removable         bool   `json:"removable"`
-	PoolName          string `json:"poolName"`
-	ReadOnly          bool   `json:"readOnly"`
-	ZoneId            int64  `json:"zoneId"`
-	RootVolume        bool   `json:"rootVolume"`
-	RefId             int64  `json:"refId"`
-	Category          string `json:"category"`
-	Status            string `json:"status"`
-	MaxStorage        int64  `json:"maxStorage"`
-	Account           struct {
-		ID int64 `json:"id"`
-	} `json:"account"`
-	Type struct {
-		ID int64 `json:"id"`
+	ID          int64  `json:"id"`
+	Name        string `json:"name"`
+	Description string `json:"description"`
+	Controller  struct {
+		ID   int64  `json:"id"`
+		Name string `json:"name"`
+	} `json:"controller"`
+	ControllerId         int64  `json:"controllerId"`
+	ControllerMountPoint string `json:"controllerMountPoint"`
+	Resizeable           bool   `json:"resizeable"`
+	RootVolume           bool   `json:"rootVolume"`
+	UnitNumber           int64  `json:"unitNumber"`
+	DeviceName           string `json:"deviceName"`
+	DeviceDisplayName    string `json:"deviceDisplayName"`
+	VolumeName           string `json:"volumeName"`
+	VolumePath           string `json:"volumePath"`
+	VolumeType           string `json:"volumeType"`
+	RefType              string `json:"refType"`
+	RefId                int64  `json:"refId"`
+	DiskMode             string `json:"diskMode"`
+	DiskType             string `json:"diskType"`
+	Type                 struct {
+		ID   int64  `json:"id"`
+		Code string `json:"code"`
+		Name string `json:"name"`
 	} `json:"type"`
+	TypeId           int64  `json:"typeId"`
+	Category         string `json:"category"`
+	Status           string `json:"status"`
+	StatusMessage    string `json:"statusMessage"`
+	ConfigurableIOPS bool   `json:"configurableIOPS"`
+	MaxStorage       int64  `json:"maxStorage"`
+	UsedStorage      int64  `json:"usedStorage"`
+	DisplayOrder     int64  `json:"displayOrder"`
+	MaxIOPS          int64  `json:"maxIOPS"`
+	UUID             string `json:"uuid"`
+	WWN              string `json:"wwn"`
+	Active           bool   `json:"active"`
+	ReadOnly         bool   `json:"readOnly"`
+	Removable        bool   `json:"removable"`
+	PoolName         string `json:"poolName"`
+	Zone             struct {
+		ID   int64  `json:"id"`
+		Name string `json:"name"`
+	} `json:"zone"`
+	ZoneId    int64 `json:"zoneId"`
+	Datastore struct {
+		ID   int64  `json:"id"`
+		Name string `json:"name"`
+	} `json:"datastore"`
+	DatastoreId          int64       `json:"datastoreId"`
+	DatastoreOption      string      `json:"datastoreOption"`
+	StorageGroup         string      `json:"storageGroup"`
+	Namespace            string      `json:"namespace"`
+	StorageServer        string      `json:"storageServer"`
+	Source               string      `json:"source"`
+	UniqueId             string      `json:"uniqueId"`
+	InternalId           string      `json:"internalId"`
+	ExternalId           string      `json:"externalId"`
+	ProvisionType        string      `json:"provisionType"`
+	CopyType             string      `json:"copyType"`
+	FiberWwn             string      `json:"fiberWwn"`
+	FileName             string      `json:"fileName"`
+	ClaimName            string      `json:"claimName"`
+	SharePath            string      `json:"sharePath"`
+	SourceId             string      `json:"sourceId"`
+	SourceImage          string      `json:"sourceImage"`
+	ImageType            string      `json:"imageType"`
+	Online               bool        `json:"online"`
+	RawData              interface{} `json:"rawData"`
+	CreateForMultiAttach bool        `json:"createForMultiAttach"`
+	IsMultiAttach        bool        `json:"isMultiAttach"`
+	StorageProfile       string      `json:"storageProfile"`
+	Account              struct {
+		ID   int64  `json:"id"`
+		Name string `json:"name"`
+	} `json:"account"`
+	Owner struct {
+		ID   int64  `json:"id"`
+		Name string `json:"name"`
+	} `json:"owner"`
 }
 
 type ClusterContainer struct {
@@ -450,6 +514,84 @@ type ClusterContainer struct {
 	} `json:"availableActions"`
 }
 
+type ClusterDatastore struct {
+	ID            int64  `json:"id"`
+	Name          string `json:"name"`
+	Code          string `json:"code"`
+	DatastoreType struct {
+		ID   int64  `json:"id"`
+		Code string `json:"code"`
+		Name string `json:"name"`
+	} `json:"datastoreType"`
+	Config struct {
+		TargetPath     string `json:"targetPath"`
+		SourceHostname string `json:"sourceHostname"`
+		SourceDirPath  string `json:"sourceDirPath"`
+	} `json:"config"`
+	Type             string `json:"type"`
+	Visibility       string `json:"visibility"`
+	StorageSize      int64  `json:"storageSize"`
+	FreeSpace        int64  `json:"freeSpace"`
+	DrsEnabled       bool   `json:"drsEnabled"`
+	Active           bool   `json:"active"`
+	AllowWrite       bool   `json:"allowWrite"`
+	DefaultStore     bool   `json:"defaultStore"`
+	Online           bool   `json:"online"`
+	AllowRead        bool   `json:"allowRead"`
+	AllowProvision   bool   `json:"allowProvision"`
+	HeartbeatTarget  bool   `json:"heartbeatTarget"`
+	CheckpointTarget bool   `json:"checkpointTarget"`
+	RefType          string `json:"refType"`
+	RefID            int64  `json:"refId"`
+	UniqueID         string `json:"uniqueId"`
+	ExternalID       string `json:"externalId"`
+	ExternalPath     string `json:"externalPath"`
+	ExternalType     string `json:"externalType"`
+	Status           string `json:"status"`
+	StatusMessage    string `json:"statusMessage"`
+	Zone             struct {
+		ID int64 `json:"id"`
+	} `json:"zone"`
+	Owner struct {
+		ID int64 `json:"id"`
+	} `json:"owner"`
+	Locations []struct {
+		RefType       string `json:"refType"`
+		RefID         int64  `json:"refId"`
+		Status        string `json:"status"`
+		StatusMessage string `json:"statusMessage"`
+	} `json:"locations"`
+	ResourcePermissions struct {
+		DefaultStore  bool `json:"defaultStore"`
+		AllPlans      bool `json:"allPlans"`
+		DefaultTarget bool `json:"defaultTarget"`
+		CanManage     bool `json:"canManage"`
+		All           bool `json:"all"`
+		Account       struct {
+			ID int64 `json:"id"`
+		} `json:"account"`
+		Sites []struct {
+			ID      int64  `json:"id"`
+			Name    string `json:"name"`
+			Default bool   `json:"default"`
+		} `json:"sites"`
+		Plans []struct {
+			ID   int64  `json:"id"`
+			Name string `json:"name"`
+		} `json:"plans"`
+	} `json:"resourcePermissions"`
+	Tenants []struct {
+		ID            int64 `json:"id"`
+		DefaultStore  bool  `json:"defaultStore"`
+		DefaultTarget bool  `json:"defaultTarget"`
+	} `json:"tenants"`
+}
+
+type ListClusterDatastoresResults struct {
+	Datastores *[]ClusterDatastore `json:"datastores"`
+	Meta       *MetaResult         `json:"meta"`
+}
+
 type ListClusterContainersResults struct {
 	Containers *[]ClusterContainer `json:"containers"`
 	Meta       *MetaResult         `json:"meta"`
@@ -520,6 +662,15 @@ func (client *Client) ListClusterNamespaces(id int64, req *Request) (*Response, 
 		Path:        fmt.Sprintf("%s/%d/namespaces", ClustersPath, id),
 		QueryParams: req.QueryParams,
 		Result:      &ListClusterNamespacesResults{},
+	})
+}
+
+func (client *Client) ListClusterDatastores(id int64, req *Request) (*Response, error) {
+	return client.Execute(&Request{
+		Method:      "GET",
+		Path:        fmt.Sprintf("%s/%d/datastores", ClustersPath, id),
+		QueryParams: req.QueryParams,
+		Result:      &ListClusterDatastoresResults{},
 	})
 }
 
